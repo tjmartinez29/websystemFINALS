@@ -1,0 +1,109 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<title>{% block title %}{% endblock %}</title>
+{% load static %}  
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css"/>
+<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"/>
+<style>
+body {
+    background-color: #F5F5DC;
+}
+nav {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #fff;
+    z-index: 1;
+    transition: all 0.5s ease-in-out;
+    overflow-y: auto;
+    padding: 20px;
+}
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+nav ul li {
+    margin: 10px 0;
+}
+nav ul li a {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px;
+}
+nav.active {
+    left: 0;
+}
+.menu-icon {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    font-size: 30px;
+    color: #555;
+    cursor: pointer;
+}
+.clock {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #555;
+}
+</style>
+</head> 
+<body>
+    <nav>
+        <ul>
+            <li><a href="announcements.html">Announcements</a></li>
+            <li><a href="show.html">Registration</a></li>
+        </ul>
+    </nav>
+    <div class="menu-icon">&#9776;</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h4 style="font-weight:bold; font-size:40px;">Cyclist Membership</h4>
+            </div>
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+    <div class="clock"></div>
+ 
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('#bootstrapdatatable').DataTable({     
+            "aLengthMenu": [[3, 5, 10, 25, -1], [3, 5, 10, 25, "All"]],
+            "iDisplayLength": 5
+        });
+
+        // Digital clock
+        setInterval(function() {
+            var date = new Date();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var seconds = date.getSeconds();
+            var time = hours + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+        $(".clock").text(time);
+    }, 1000);
+        // Sliding navigation pane
+        $(".menu-icon").click(function() {
+        $("nav").toggleClass("active");
+    });
+});
+</script>
+</body>
+</html>
+```
